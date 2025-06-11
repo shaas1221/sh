@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>النتيجة</title>
-  <style>
-    body { font-family: Arial, sans-serif; direction: rtl; text-align: center; padding: 20px; }
-    .correct { color: green; }
-    .wrong { color: red; }
-  </style>
+    <meta charset="UTF-8">
+    <title>نتيجة الإجابة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>مرجع الجملة: {{ reference }}</h1>
-  <p>إجابتك: <strong>{{ answer }}</strong></p>
-  {% if is_correct %}
-    <p class="correct">👍 إجابة صحيحة!</p>
-  {% else %}
-    <p class="wrong">👎 إجابة خاطئة.</p>
-    <p>الإجابة الصحيحة: <strong>{{ correct }}</strong></p>
-  {% endif %}
-  <a href="/">جرب جملة أخرى</a>
+<body class="container my-5 text-center">
+
+    <h1 class="mb-4">النتيجة</h1>
+
+    {% if correct %}
+        <div class="alert alert-success fs-4" role="alert">
+            ✅ إجابة صحيحة!
+        </div>
+    {% else %}
+        <div class="alert alert-danger fs-4" role="alert">
+            ❌ الإجابة غير صحيحة.
+        </div>
+        <p class="lead">الإجابة الصحيحة:</p>
+        <p class="fw-bold">{{ correct_answer }}</p>
+    {% endif %}
+
+    <a href="/" class="btn btn-primary mt-4">العب مرة أخرى</a>
+
 </body>
 </html>
