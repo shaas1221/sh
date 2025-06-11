@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة Anagrams</title>
+  <style>
+    body { font-family: Arial, sans-serif; direction: rtl; text-align: center; padding: 20px; }
+    .word-btn { margin: 5px; padding: 10px 15px; font-size: 16px; }
+    #selected { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>مرجع الجملة: {{ reference }}</h1>
+  <form method="post" action="/check">
+    <input type="hidden" name="reference" value="{{ reference }}">
+    <div id="buttons">
+      {% for w in words %}
+        <button 
+          type="button" 
+          class="word-btn" 
+          data-idx="{{ loop.index0 }}" 
+          onclick="addWord(this)">
+          {{ w }}
+        </button>
+      {% endfor %}
+    </div>
+    <div id="selected">
+      <h3>إجابتك:</h3>
+      <div id="answer-area"></div>
+      <button type="button" onclick="removeWord()">حذف</button>
+    </div>
+    <input type="hidden" name="selected" id="selected-input">
+    <div style="margin-top:20px;">
+      <button type="submit">تحقق</button>
+    </div>
+  </form>
+
+  <script>
+    // نخزّن كل عنصر ككائن يحتوي على الكلمة ومؤشرها
+    let selected = [];
+
+    function addWord(btn) {
+      const w = btn.innerText;
+      const idx = btn.dataset.idx;
+      selected.push({ word: w, idx: idx });
+      updateDisplay();
+      btn.style.visibility = 'hidden';
+    }
+
+    function removeWord() {
+      if (selected.length === 0) return;
+      // نستخرج آخر كائن
+      const last = selected.pop();
+      updateDisplay();
+      // نعيد إظهار الزر الخاص بهذا المؤشر
+      const btn = document.querySelector(`.word-btn[data-idx="${last.idx}"]`);
+      if (btn) btn.style.visibility = 'visible';
+    }
+
+    function updateDisplay() {
+      // عرض الكلمات فقط
+      const words = selected.map(o => o.word);
+      document.getElementById('answer-area').innerText = words.join(' ');
+      document.getElementById('selected-input').value = words.join(' ');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>النتيجة</title>
+  <style>
+    body { font-family: Arial, sans-serif; direction: rtl; text-align: center; padding: 20px; }
+    .correct { color: green; }
+    .wrong { color: red; }
+  </style>
+</head>
+<body>
+  <h1>مرجع الجملة: {{ reference }}</h1>
+  <p>إجابتك: <strong>{{ answer }}</strong></p>
+  {% if is_correct %}
+    <p class="correct">👍 إجابة صحيحة!</p>
+  {% else %}
+    <p class="wrong">👎 إجابة خاطئة.</p>
+    <p>الإجابة الصحيحة: <strong>{{ correct }}</strong></p>
+  {% endif %}
+  <a href="/">جرب جملة أخرى</a>
+</body>
+</html>
