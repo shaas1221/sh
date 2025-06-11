@@ -24,7 +24,7 @@ def index():
                            reference=reference,
                            words=words)
 
-@app.route('/check', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def check():
     reference = request.form['reference']
     raw = request.form.get('selected', '')
